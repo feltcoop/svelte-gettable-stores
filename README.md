@@ -21,11 +21,12 @@ to retrieve correct values when there are no subscribers.
 It can be accessed with the exported symbol key `store[SUBSCRIBER_COUNT]`,
 and may also be useful for debugging and diagnostic purposes.
 For these reasons and also consistency, it's included on all stores.
+(maybe it shouldn't be?)
 
 > `store[SUBSCRIBER_COUNT]` is an enumerable property with a `Symbol` key,
 > so it does not appear with `Object.keys(store)` and `for (key in store)`
 > but it does get included with `{...store}` and others.
-> (maybe a better name would be `GET_SUBSCRIBER_COUNT` or `COUNT_SUBSCRIBERS`?)
+> (maybe this isn't best? maybe a better name is `GET_SUBSCRIBER_COUNT` or `COUNT_SUBSCRIBERS`?)
 > Learn [more at MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Enumerability_and_ownership_of_properties).
 
 See [the store diff](https://github.com/feltcoop/svelte-gettable-stores/commit/41df06d236ca8951e3a14f4fc4d945717a0d392a#diff-276a0044b7db537e1835eb8b2c20368b8a7437a3fde350198bff4db2b9e418fe)
