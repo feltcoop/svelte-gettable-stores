@@ -1,6 +1,6 @@
 {
   "name": "@feltcoop/svelte-gettable-stores",
-  "description": "experimental, please do not use unless you really know what you're doing",
+  "description": "`.get()` for Svelte stores; please do not use unless you really know what you're doing",
   "version": "0.1.0",
   "type": "module",
   "license": "MIT",
