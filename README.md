@@ -3,9 +3,9 @@
 npm: [`@feltcoop/svelte-gettable-stores`](https://www.npmjs.com/package/@feltcoop/svelte-gettable-stores)
 
 **‼ This library can cause tricky bugs**
-**and there may be good reasons the Svelte team recommends**
+**and there may be good reasons the Svelte team supports**
 **[`get`](https://svelte.dev/docs#run-time-svelte-store-get)**
-**instead of supporting `.get()`.**
+**and not `.get()`.**
 (some discussion on [this issue](https://github.com/sveltejs/svelte/issues/2060#issuecomment-667555847))
 Please do not use this unless you really truly know what you're doing 🤒
 The only benefit is performance, which may not be relevant for your usage.
@@ -31,7 +31,7 @@ For these reasons and also consistency, it's included on all stores.
 
 See [the store diff](https://github.com/feltcoop/svelte-gettable-stores/commit/41df06d236ca8951e3a14f4fc4d945717a0d392a#diff-276a0044b7db537e1835eb8b2c20368b8a7437a3fde350198bff4db2b9e418fe)
 and [tests](src/lib/store.test.ts) for more.
-We welcome discussion in issues and privately.
+Discussion is welcome in issues and privately.
 
 ## motivation
 
@@ -44,9 +44,10 @@ but it costs more than necessary in most cases. From the Svelte docs:
 > ([svelte.dev/docs](https://svelte.dev/docs#run-time-svelte-store-get))
 
 In many cases, this cost is either negligible or architecturally irrelevant.
-In other cases, like nested stores processed in non-reactive contexts like event handlers,
+In other cases, like nested stores and collections
+processed in non-reactive contexts like event handlers,
 the cost can be undesirably high.
-(we can provide open source examples, open an issue if you'd like to see them)
+(we can provide open source examples, open an issue if you'd like to discuss)
 
 This library adds `.get()` to the original store implementations
 to access values without the cost of a subscription+unsubscription
