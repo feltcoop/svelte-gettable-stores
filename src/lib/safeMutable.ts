@@ -1,6 +1,5 @@
-import {writable} from 'svelte/store';
-
-import type {Mutable} from './mutable';
+import {writable, SUBSCRIBER_COUNT} from '$lib/store';
+import type {Mutable} from '$lib/mutable';
 
 /**
  * Creates a store wrapping a mutable `value`.
@@ -17,15 +16,18 @@ import type {Mutable} from './mutable';
  * @param value {any}
  */
 export const safeMutable = <T>(value: T): Mutable<T> => {
-	const {subscribe, set} = writable({value});
+	const store = writable({value});
+	const {subscribe, get, set} = store;
 	return {
 		subscribe,
+		get,
+		[SUBSCRIBER_COUNT]: store[SUBSCRIBER_COUNT],
 		mutate: (mutator) => {
 			if (mutator) mutator(value);
 			set({value});
 		},
 		swap: (v) => {
-			value = v;
+			value = v; // eslint-disable-line no-param-reassign
 			set({value});
 		},
 	};

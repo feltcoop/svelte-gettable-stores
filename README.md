@@ -1,80 +1,58 @@
-# felt-template
+# @feltcoop/svelte-gettable-stores
 
-> a web app template with [SvelteKit](https://github.com/sveltejs/kit),
-> [Felt](https://github.com/feltcoop/felt), and [Gro](https://github.com/feltcoop/gro)
+npm: [`@feltcoop/svelte-gettable-stores`](https://www.npmjs.com/package/@feltcoop/svelte-gettable-stores)
 
-deployed:
-[feltcoop.github.io/felt-template](https://feltcoop.github.io/felt-template)
+**‼ This library can cause tricky bugs**
+**and there may be good reasons the Svelte team recommends**
+**[`get`](https://svelte.dev/docs#run-time-svelte-store-get)**
+**instead of supporting `.get()`.**
+(some discussion on [this issue](https://github.com/sveltejs/svelte/issues/2060#issuecomment-667555847))
+Please do not use this unless you really truly know what you're doing 🤒
+The only benefit is performance, which may not be relevant for your usage.
 
-## usage
+Adds a **non-reactive** `.get()` to Svelte stores
+(as well as [`@feltcoop/svelte-mutable-store`](https://github.com/feltcoop/svelte-mutable-store)).
+It copypastes the original implementations and makes
+[these changes]().
 
-If you're logged into GitHub, click "Use this template" above or clone with
-[`degit`](https://github.com/Rich-Harris/degit):
+Also adds a second function property to all stores that returns the subscriber count.
+It's used by `derived` stores to detect if they need to use the Svelte builtin `get`
+to retrieve correct values when there are no subscribers.
+It can be accessed with the exported symbol key `store[SUBSCRIBER_COUNT]`,
+and may also be useful for debugging and diagnostic purposes.
+For these reasons and also consistency, it's included on all stores.
 
-```bash
-npx degit feltcoop/felt-template cooltoy
-cd cooltoy
-npm i
-# then
-npm run dev
-# or
-gro dev # npm i -g @feltcoop/gro
-```
+> `store[SUBSCRIBER_COUNT]` is an enumerable property with a `Symbol` key,
+> so it does not appear with `Object.keys(store)` and `for (key in store)`
+> but it does get included with `{...store}` and others.
+> (maybe a better name would be `GET_SUBSCRIBER_COUNT` or `COUNT_SUBSCRIBERS`?)
+> Learn [more at MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Enumerability_and_ownership_of_properties).
 
-> learn more about [Gro](https://github.com/feltcoop/gro)
+See [the store diff]()
+and [tests](src/lib/store.test.ts) for more.
 
-The template includes
-[`@sveltejs/adapter-static`](https://github.com/sveltejs/kit/tree/master/packages/adapter-static)
-so it can deploy with no further configuration.
-To learn how to swap it out for another deployment target, see
-[the SvelteKit adapter docs](https://kit.svelte.dev/docs#adapters).
+## motivation
 
-To make it your own, change `felt-template` to your project name in the following files:
+Svelte offers the standalone [`get`](https://svelte.dev/docs#run-time-svelte-store-get)
+function to non-reactively access store values,
+but it costs more than necessary in most cases. From the Svelte docs:
 
-- [`package.json`](package.json)
-- [`svelte.config.js`](svelte.config.js)
-- [`src/routes/__layout.svelte`](src/routes/__layout.svelte)
-- [`src/routes/index.svelte`](src/routes/index.svelte)
+> "This works by creating a subscription, reading the value, then unsubscribing.
+> It's therefore not recommended in hot code paths."
+> ([svelte.dev/docs](https://svelte.dev/docs#run-time-svelte-store-get))
 
-Then run `npm i` to update `package-lock.json`.
+In many cases, this cost is either negligible or architecturally irrelevant.
+In other cases, like nested stores processed in non-reactive contexts like event handlers,
+the cost can be undesirably high.
+(we can provide open source examples, open an issue if you'd like to see them)
 
-Optionally add a [license file](https://choosealicense.com/)
-and [`package.json` value](https://spdx.org/licenses/), like `"license": "MIT"`.
+This library adds `.get()` to the original store implementations
+to access values without the cost of a subscription+unsubscription
+in all cases except `derived` stores with zero subscribers.
+In that case, it uses the `get` builtin.
 
-See [SvelteKit](https://github.com/sveltejs/kit)
-and [Vite](https://github.com/vitejs/vite) for more.
+## license
 
-## build
-
-```bash
-npm run build
-# or
-gro build
-```
-
-## deploy
-
-[Deploy](https://github.com/feltcoop/gro/blob/main/src/docs/deploy.md)
-(build, commit, and push) to the `deploy` branch, e.g. for GitHub Pages:
-
-```bash
-npm run deploy
-# or
-gro deploy
-```
-
-## credits 🐢<sub>🐢</sub><sub><sub>🐢</sub></sub>
-
-[Svelte](https://github.com/sveltejs/svelte) ∙
-[SvelteKit](https://github.com/sveltejs/kit) ∙
-[Vite](https://github.com/vitejs/vite) ∙
-[esbuild](https://github.com/evanw/esbuild) ∙
-[uvu](https://github.com/lukeed/uvu) ∙
-[TypeScript](https://github.com/microsoft/TypeScript) ∙
-[ESLint](https://github.com/eslint/eslint) ∙
-[Prettier](https://github.com/prettier/prettier) ∙
-[Felt](https://github.com/feltcoop/felt) ∙
-[Gro](https://github.com/feltcoop/gro)
-& [more](package.json)
-
-## [🐦](https://wikipedia.org/wiki/Free_and_open-source_software)
+[MIT](LICENSE.md)
+(copy of [Svelte's license](https://github.com/sveltejs/svelte/blob/master/LICENSE.md),
+no affiliation)

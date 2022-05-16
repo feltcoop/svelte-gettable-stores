@@ -1,5 +1,14 @@
+// @ts-nocheck
+/* eslint-disable */
+
 import * as assert from 'assert';
-import { readable, writable, derived, get } from '../../store';
+import {get} from 'svelte/store';
+import {readable, writable, derived} from '$lib/store';
+import {test as it} from 'uvu';
+
+// Copypasted with a simple swap to uvu:
+// https://github.com/sveltejs/svelte/blob/ab48fbadb3a2f8f14c7d464916eec2b7b8475a05/test/store/index.ts
+const describe = (_: string, cb: () => void) => cb();
 
 describe('store', () => {
 	describe('writable', () => {
@@ -412,3 +421,5 @@ describe('store', () => {
 		});
 	});
 });
+
+it.run();

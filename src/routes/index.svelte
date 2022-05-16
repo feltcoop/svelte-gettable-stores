@@ -1,20 +1,18 @@
 <script lang="ts">
 	import Message from '@feltcoop/felt/ui/Message.svelte';
-
-	import Mreows from '$lib/Mreows.svelte';
 </script>
 
 <main class="markup column">
 	<section class="column-sm">
-		<h1>felt-template</h1>
+		<h1>@feltcoop/svelte-gettable-stores</h1>
 		<Message
 			><span
-				>hello, welcome to <a href="https://github.com/feltcoop/felt-template">felt-template</a
+				>hello, welcome to <a href="https://github.com/feltcoop/svelte-gettable-stores"
+					>@feltcoop/svelte-gettable-stores</a
 				></span
 			></Message
 		>
 	</section>
-	<Mreows />
 </main>
 
 <style>
