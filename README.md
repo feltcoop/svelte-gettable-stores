@@ -59,3 +59,5 @@ In that case, it uses the `get` builtin.
 [MIT](LICENSE.md)
 (copy of [Svelte's license](https://github.com/sveltejs/svelte/blob/master/LICENSE.md),
 no affiliation)
+
+everything else: [Unlicense](https://wikipedia.org/wiki/Unlicense) (public domain)
