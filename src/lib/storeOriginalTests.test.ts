@@ -1,3 +1,6 @@
+// Copypasted from https://github.com/sveltejs/svelte/blob/0ed6ebef9d5d6df12f53bfe936d2f055c0cd0214/test/store/index.ts
+// MIT - see /LICENSE.md
+
 // @ts-nocheck
 /* eslint-disable */
 
