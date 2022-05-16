@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "license": "MIT",
+  "repository": "github:feltcoop/svelte-gettable-stores",
   "engines": {
     "node": ">= 16.6"
   },
