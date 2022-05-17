@@ -21,7 +21,8 @@ to retrieve correct values when there are no subscribers.
 It can be accessed with the exported symbol key `store[SUBSCRIBER_COUNT]`,
 and may also be useful for debugging and diagnostic purposes.
 For these reasons and also consistency, it's included on all stores.
-(maybe it shouldn't be?)
+(maybe it shouldn't be? though I'm not sure how you'd get the necessary info to
+`derived` without it also being on `writable` and `readable` given the store impl)
 
 > `store[SUBSCRIBER_COUNT]` is an enumerable property with a `Symbol` key,
 > so it does not appear with `Object.keys(store)` and `for (key in store)`
@@ -57,7 +58,6 @@ In that case, it uses the `get` builtin.
 ## license
 
 [MIT](LICENSE.md)
-(copy of [Svelte's license](https://github.com/sveltejs/svelte/blob/master/LICENSE.md),
-no affiliation)
+(copy of [Svelte's license](https://github.com/sveltejs/svelte/blob/master/LICENSE.md))
 
 everything else: [Unlicense](https://wikipedia.org/wiki/Unlicense) (public domain)
