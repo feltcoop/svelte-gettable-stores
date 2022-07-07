@@ -1,4 +1,4 @@
-import {writable, SUBSCRIBER_COUNT} from '$lib/store';
+import {writable} from '$lib/store';
 import type {Mutable} from '$lib/mutable';
 
 /**
@@ -21,7 +21,6 @@ export const safeMutable = <T>(value: T): Mutable<T> => {
 	return {
 		subscribe,
 		get,
-		[SUBSCRIBER_COUNT]: store[SUBSCRIBER_COUNT],
 		mutate: (mutator) => {
 			if (mutator) mutator(value);
 			set({value});
