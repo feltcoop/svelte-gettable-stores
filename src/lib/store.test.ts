@@ -23,7 +23,7 @@ test('derived with subscription', () => {
 	assert.is(c.get(), 'ab');
 });
 
-test.only('derived without subscription', () => {
+test('derived without subscription', () => {
 	const a = writable('a');
 	const b = writable('b');
 	const c = derived([a, b], ([$a, $b]) => $a + $b);
