@@ -15,8 +15,9 @@ Adds a **non-reactive** `.get()` to Svelte stores
 It copypastes the original implementations and makes
 [these changes](TODO).
 
-See [the store diff](TODO)
-and [tests](src/lib/store.test.ts) for more.
+See the [tests](src/lib/store.test.ts) for more.
+The implementation was partially inspired by
+[`svelte-store2`](https://github.com/vkurko/svelte-store2).
 Discussion is welcome in issues and privately.
 
 ## motivation
