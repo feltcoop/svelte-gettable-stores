@@ -13,7 +13,7 @@ The only benefit is performance, which may not be relevant for your usage.
 Adds a **non-reactive** `.get()` to Svelte stores
 (as well as [`@feltcoop/svelte-mutable-store`](https://github.com/feltcoop/svelte-mutable-store)).
 It copypastes the original implementations and makes
-[these changes](TODO).
+[these changes](https://github.com/feltcoop/svelte-gettable-stores/compare/4d0ed2d..fc5e577#diff-276a0044b7db537e1835eb8b2c20368b8a7437a3fde350198bff4db2b9e418fe).
 
 See the [tests](src/lib/store.test.ts) for more.
 The implementation was partially inspired by
