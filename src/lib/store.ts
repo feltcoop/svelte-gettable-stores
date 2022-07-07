@@ -12,8 +12,6 @@ export type Subscriber<T> = (value: T) => void;
 /** Unsubscribes from value updates. */
 export type Unsubscriber = () => void;
 
-/* Key for the store function that returns the current subscriber count. */
-export const SUBSCRIBER_COUNT = Symbol('SUBSCRIBER_COUNT');
 
 /** Callback to update a value. */
 export type Updater<T> = (value: T) => T;
@@ -39,11 +37,6 @@ export interface Readable<T> {
 	 */
 	get(): T;
 
-	/**
-	 * Get the subscriber count.
-	 * Used by `derived` to determine if `.get()` needs to use the subscribing version.
-	 */
-	[SUBSCRIBER_COUNT](): number;
 }
 
 /** Writable interface for both updating and subscribing. */
@@ -72,12 +65,8 @@ const subscriber_queue = [];
  * @param {StartStopNotifier}start start and stop notifications for subscriptions
  */
 export function readable<T>(value?: T, start?: StartStopNotifier<T>): Readable<T> {
-	const s = writable(value, start);
-	return {
-		subscribe: s.subscribe,
-		get: s.get,
-		[SUBSCRIBER_COUNT]: s[SUBSCRIBER_COUNT]
-	};
+	const {subscribe, get} = writable(value, start);
+	return {subscribe, get};
 }
 
 /**
@@ -134,7 +123,6 @@ export function writable<T>(value?: T, start: StartStopNotifier<T> = noop): Writ
 		update,
 		subscribe,
 		get: () => value,
-		[SUBSCRIBER_COUNT]: () => subscribers.size,
 	};
 }
 
@@ -192,8 +180,10 @@ export function derived<T>(stores: Stores, fn: Function, initial_value?: T): Rea
 		: stores as Array<Readable<any>>;
 
 	const auto = fn.length < 2;
+	let subscribed = false;
 
 	const s = readable(initial_value, (set) => {
+		subscribed = true;
 		let inited = false;
 		const values = [];
 
@@ -233,11 +223,11 @@ export function derived<T>(stores: Stores, fn: Function, initial_value?: T): Rea
 		return function stop() {
 			run_all(unsubscribers);
 			cleanup();
+			subscribed = false;
 		};
 	});
 	return {
 		subscribe: s.subscribe,
-		get: () => (s[SUBSCRIBER_COUNT]() === 0 ? get_store_value(s) : s.get()),
-		[SUBSCRIBER_COUNT]: s[SUBSCRIBER_COUNT],
+		get: () => ((subscribed ?  s.get():get_store_value(s) )),
 	};
 }

@@ -1,4 +1,4 @@
-import {writable, type Readable, SUBSCRIBER_COUNT} from '$lib/store';
+import {writable, type Readable} from '$lib/store';
 
 export interface Mutable<T> extends Readable<{value: T}> {
 	mutate: (mutator?: (value: T) => void) => void;
@@ -41,7 +41,6 @@ export const mutable = <T>(value: T): Mutable<T> => {
 	return {
 		subscribe,
 		get,
-		[SUBSCRIBER_COUNT]: store[SUBSCRIBER_COUNT],
 		mutate: (mutator) => {
 			if (mutator) mutator(value);
 			set((swap = !swap) ? b : a);

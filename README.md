@@ -13,25 +13,9 @@ The only benefit is performance, which may not be relevant for your usage.
 Adds a **non-reactive** `.get()` to Svelte stores
 (as well as [`@feltcoop/svelte-mutable-store`](https://github.com/feltcoop/svelte-mutable-store)).
 It copypastes the original implementations and makes
-[these changes](https://github.com/feltcoop/svelte-gettable-stores/commit/41df06d236ca8951e3a14f4fc4d945717a0d392a#diff-276a0044b7db537e1835eb8b2c20368b8a7437a3fde350198bff4db2b9e418fe).
+[these changes](TODO).
 
-Also adds a second function property to all stores that returns the subscriber count.
-It's used by `derived` stores to detect if they need to use the Svelte builtin `get`
-to retrieve correct values when there are no subscribers.
-It can be accessed with the exported symbol key `store[SUBSCRIBER_COUNT]`,
-and may also be useful for debugging and diagnostic purposes.
-For these reasons and also consistency, it's included on all stores.
-(maybe it shouldn't be? though I'm not sure how you'd get the necessary info to
-`derived` without it also being on `writable` and `readable` given the store impl)
-
-> `store[SUBSCRIBER_COUNT]` is an enumerable property with a `Symbol` key,
-> so it does not appear with `Object.keys(store)` and `for (key in store)`
-> but it does get included with `{...store}` and others.
-> (maybe this isn't best? maybe a better name is `GET_SUBSCRIBER_COUNT` or `COUNT_SUBSCRIBERS`?
-> or should it be a normal function named something like `subscribers`?)
-> Learn [more at MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Enumerability_and_ownership_of_properties).
-
-See [the store diff](https://github.com/feltcoop/svelte-gettable-stores/commit/41df06d236ca8951e3a14f4fc4d945717a0d392a#diff-276a0044b7db537e1835eb8b2c20368b8a7437a3fde350198bff4db2b9e418fe)
+See [the store diff](TODO)
 and [tests](src/lib/store.test.ts) for more.
 Discussion is welcome in issues and privately.
 
